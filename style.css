@@ -1,0 +1,84 @@
+body {
+    font-family: 'Cairo', sans-serif; /* You can import Cairo font from Google Fonts */
+    background-color: #f5f7fa;
+    color: #333;
+    margin: 0;
+    line-height: 1.6;
+}
+header {
+    background-color: #0056b3;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+header h1 { margin: 0; }
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+.filters input, .filters select {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    flex-grow: 1;
+}
+.opportunities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.opportunity-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    transition: transform 0.2s;
+}
+.opportunity-card:hover {
+    transform: translateY(-5px);
+}
+.opportunity-card h2 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    color: #0056b3;
+}
+.opportunity-card .meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.opportunity-card .meta span {
+    background-color: #e9ecef;
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+}
+.opportunity-card a {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+.loading-indicator { text-align: center; font-size: 1.2rem; padding: 2rem; }
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    background-color: #343a40;
+    color: white;
+}
+footer a { color: #17a2b8; }
