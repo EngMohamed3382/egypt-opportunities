@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // !!! مهم جداً: ضع رابط الـ CSV اللي نسخته من Google Sheet هنا !!!
-    const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/1SrDBmXAILY7HyK7HM7AWsnlOHP0qSnmKssR5a5lqO2c/edit?usp=sharing';
+    const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRLuh30Cn6quND3xxV2YLaCGroN-_kT3vssQzRmb-qQEulAce9kF2udC6yX_b1UVZYFA-8nKgIUAYqi/pub?output=csv';
 
     const listElement = document.getElementById('opportunities-list');
     const loadingElement = document.getElementById('loading');
@@ -102,3 +102,4 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchOpportunities();
 
 });
+
