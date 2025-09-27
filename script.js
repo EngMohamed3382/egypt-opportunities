@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    //!!! تأكد من أن هذا هو رابط الـ CSV الصحيح من Google Sheet!!!
+    // !!! تأكد من أن هذا هو رابط الـ CSV الصحيح من Google Sheet !!!
     const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRLuh30Cn6quND3xxV2YLaCGroN-_kT3vssQzRmb-qQEulAce9kF2udC6yX_b1UVZYFA-8nKgIUAYqi/pub?output=csv';
 
     const listElement = document.getElementById('opportunities-list');
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typeFilter = document.getElementById('typeFilter');
     const cityFilter = document.getElementById('cityFilter');
     
-    let allOpportunities =;
+    let allOpportunities = [];
 
     // دالة لجلب البيانات من Google Sheet
     async function fetchOpportunities() {
@@ -16,21 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(SPREADSHEET_URL);
             const csvText = await response.text();
             
-            const rows = csvText.split(/\r?\n/).slice(1);
+            // تحويل نص CSV إلى مصفوفة من الكائنات
+            const rows = csvText.split(/\r?\n/).slice(1); // تجاهل الصف الأول (العناوين)
             allOpportunities = rows.map(row => {
                 const columns = row.split(',');
-                  return {
-                        title: columns[1]?.trim().replace(/"/g, '') || '',       // 0 -> 1
-                        organizer: columns[2]?.trim().replace(/"/g, '') || '',   // 1 -> 2
-                        description: columns[3]?.trim().replace(/"/g, '') || '',// 2 -> 3
-                        deadline: columns[4]?.trim().replace(/"/g, '') || '',   // 3 -> 4
-                        type: columns[5]?.trim().replace(/"/g, '') || '',       // 4 -> 5
-                        city: columns[6]?.trim().replace(/"/g, '') || '',       // 5 -> 6
-                        link: columns[7]?.trim().replace(/"/g, '') || '',       // 6 -> 7
-                        status: columns[8]?.trim().replace(/"/g, '') || ''      // 7 -> 8
-            };
-
-            }).filter(opp => opp.approval_status === 'approved');
+                // تنظيف البيانات من علامات التنصيص
+                // تم تعديل الأرقام لتبدأ من 1 بدلاً من 0 لتجاهل عمود Timestamp
+                return {
+                    title: columns[1]?.trim().replace(/"/g, '') || '',
+                    organizer: columns[2]?.trim().replace(/"/g, '') || '',
+                    description: columns[3]?.trim().replace(/"/g, '') || '',
+                    deadline: columns[4]?.trim().replace(/"/g, '') || '',
+                    type: columns[5]?.trim().replace(/"/g, '') || '',
+                    city: columns[6]?.trim().replace(/"/g, '') || '',
+                    link: columns[7]?.trim().replace(/"/g, '') || '',
+                    status: columns[8]?.trim().replace(/"/g, '') || ''
+                };
+            }).filter(opp => opp.status === 'published' && opp.title); // فلترة الفرص المنشورة فقط والتي لها عنوان
 
             displayOpportunities(allOpportunities);
         } catch (error) {
@@ -41,33 +43,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // دالة لعرض الفرص في الصفحة (تم تحديثها لإضافة الأيقونات)
+    // دالة لعرض الفرص في الصفحة
     function displayOpportunities(opportunities) {
         listElement.innerHTML = '';
         if (opportunities.length === 0) {
-            listElement.innerHTML = '<p>لا توجد فرص معتمدة حاليًا. تابعنا قريبًا!</p>';
+            listElement.innerHTML = '<p>لا توجد نتائج حاليًا. حاول مرة أخرى لاحقًا.</p>';
             return;
         }
 
         opportunities.forEach(opp => {
             const card = document.createElement('div');
             card.className = 'opportunity-card';
-
-            let correctedLink = opp.link;
-            if (correctedLink &&!correctedLink.startsWith('http://') &&!correctedLink.startsWith('https://')) {
-                correctedLink = 'https://' + correctedLink;
-            }
-
             card.innerHTML = `
                 <h2>${opp.title}</h2>
                 <div class="meta">
-                    <div class="meta-item"><i class="fas fa-building"></i> <span>${opp.organizer}</span></div>
-                    <div class="meta-item"><i class="fas fa-tag"></i> <span>${opp.type}</span></div>
-                    <div class="meta-item"><i class="fas fa-map-marker-alt"></i> <span>${opp.city}</span></div>
-                    <div class="meta-item"><i class="fas fa-calendar-alt"></i> <span>آخر معاد: ${opp.deadline}</span></div>
+                    <span><strong>الجهة:</strong> ${opp.organizer}</span>
+                    <span><strong>النوع:</strong> ${opp.type}</span>
+                    <span><strong>المدينة:</strong> ${opp.city}</span>
+                    <span><strong>آخر معاد:</strong> ${opp.deadline}</span>
                 </div>
                 <p>${opp.description.substring(0, 150)}...</p>
-                <a href="${correctedLink}" target="_blank" class="cta-button">التقديم والتفاصيل</a>
+                <a href="${opp.link}" target="_blank">التقديم والتفاصيل</a>
             `;
             listElement.appendChild(card);
         });
@@ -106,5 +102,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // بداية تحميل البيانات
     fetchOpportunities();
 });
-
-
