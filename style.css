@@ -181,3 +181,22 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+/* Styling for the new banner */
+.header-banner {
+    width: 100%; /* تجعل الصورة تملأ عرض الهيدر بالكامل */
+    height: 250px; /* يمكنك تعديل هذا الارتفاع حسب رغبتك */
+    object-fit: cover; /* تضمن أن الصورة تغطي المساحة بدون تشويه */
+    display: block; /* تزيل أي مسافات فارغة تحت الصورة */
+}
+
+/* We remove the background color from the header if there's a banner */
+header {
+    background: none; /* نزيل لون الخلفية الأزرق القديم */
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.header-content {
+    background: rgba(0, 55, 107, 0.8); /* نضيف خلفية شفافة للنص فوق البانر */
+    padding: 2rem 1rem;
+}
