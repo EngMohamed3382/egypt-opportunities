@@ -247,3 +247,25 @@ header {
     font-size: 14px;  /* حجم خط مناسب للفوتر */
     color: #6c757d;   /* لون رمادي للنص (أفضل من الأسود الحاد) */
 }
+
+
+/* ================== زر التقديم والتفاصيل ================== */
+
+.details-button {
+    display: inline-block;
+    background-color: #28a745; /* اللون الأخضر البرسيمي */
+    color: white !important; /* !important لضمان أن لون النص أبيض دائماً */
+    padding: 10px 20px;
+    text-decoration: none; /* إزالة الخط تحت الرابط */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center; /* للتأكيد أن النص في المنتصف */
+}
+
+.details-button:hover {
+    background-color: #218838; /* درجة أغمق عند مرور الماوس */
+}
+
