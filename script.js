@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // !!! تأكد من أن هذا هو رابط الـ CSV الصحيح من Google Sheet !!!
+    //!!! تأكد من أن هذا هو رابط الـ CSV الصحيح من Google Sheet!!!
     const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRLuh30Cn6quND3xxV2YLaCGroN-_kT3vssQzRmb-qQEulAce9kF2udC6yX_b1UVZYFA-8nKgIUAYqi/pub?output=csv';
 
     const listElement = document.getElementById('opportunities-list');
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typeFilter = document.getElementById('typeFilter');
     const cityFilter = document.getElementById('cityFilter');
     
-    let allOpportunities = [];
+    let allOpportunities =;
 
     // دالة لجلب البيانات من Google Sheet
     async function fetchOpportunities() {
@@ -16,23 +16,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(SPREADSHEET_URL);
             const csvText = await response.text();
             
-            // تحويل نص CSV إلى مصفوفة من الكائنات
-            const rows = csvText.split(/\r?\n/).slice(1); // تجاهل الصف الأول (العناوين)
+            const rows = csvText.split(/\r?\n/).slice(1);
             allOpportunities = rows.map(row => {
                 const columns = row.split(',');
-                // تنظيف البيانات من علامات التنصيص
-                // تم تعديل الأرقام لتبدأ من 1 بدلاً من 0 لتجاهل عمود Timestamp
+                // تم إضافة عمود الموافقة الجديد
                 return {
-                    title: columns[1]?.trim().replace(/"/g, '') || '',
-                    organizer: columns[2]?.trim().replace(/"/g, '') || '',
-                    description: columns[3]?.trim().replace(/"/g, '') || '',
-                    deadline: columns[4]?.trim().replace(/"/g, '') || '',
-                    type: columns[5]?.trim().replace(/"/g, '') || '',
-                    city: columns[6]?.trim().replace(/"/g, '') || '',
-                    link: columns[7]?.trim().replace(/"/g, '') || '',
-                    status: columns[8]?.trim().replace(/"/g, '') || ''
+                    title: columns?.[1]trim().replace(/"/g, '') |
+
+| '',
+                    organizer: columns?.[2]trim().replace(/"/g, '') |
+
+| '',
+                    description: columns?.[3]trim().replace(/"/g, '') |
+
+| '',
+                    deadline: columns?.[4]trim().replace(/"/g, '') |
+
+| '',
+                    type: columns?.[5]trim().replace(/"/g, '') |
+
+| '',
+                    city: columns?.[6]trim().replace(/"/g, '') |
+
+| '',
+                    link: columns?.[7]trim().replace(/"/g, '') |
+
+| '',
+                    status: columns?.[8]trim().replace(/"/g, '') |
+
+| '',
+                    approval_status: columns?.[9]trim().replace(/"/g, '') |
+
+| ''
                 };
-            }).filter(opp => opp.status === 'published' && opp.title); // فلترة الفرص المنشورة فقط والتي لها عنوان
+            }).filter(opp => opp.approval_status === 'approved'); // <-- تم تعديل الفلتر هنا
 
             displayOpportunities(allOpportunities);
         } catch (error) {
@@ -102,3 +119,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // بداية تحميل البيانات
     fetchOpportunities();
 });
+
