@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typeFilter = document.getElementById('typeFilter');
     const cityFilter = document.getElementById('cityFilter');
     
-    let allOpportunities =;
+    let allOpportunities = [];
 
     // دالة لجلب البيانات من Google Sheet
     async function fetchOpportunities() {
@@ -119,4 +119,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // بداية تحميل البيانات
     fetchOpportunities();
 });
+
 
