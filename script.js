@@ -124,3 +124,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // بداية تحميل البيانات
     fetchOpportunities();
 });
+
