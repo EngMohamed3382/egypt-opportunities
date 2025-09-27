@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span><strong>آخر معاد:</strong> ${opp.deadline}</span>
                 </div>
                 <p>${opp.description.substring(0, 150)}...</p>
-                <a href="${opp.link}" target="_blank">التقديم والتفاصيل</a>
+                <a href="${opp.link}" target="_blank" class="details-button">التقديم والتفاصيل</a>
             `;
             listElement.appendChild(card);
         });
@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // بداية تحميل البيانات
     fetchOpportunities();
 });
+
 
 
 
