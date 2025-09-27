@@ -19,35 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const rows = csvText.split(/\r?\n/).slice(1);
             allOpportunities = rows.map(row => {
                 const columns = row.split(',');
-                return {
-                    title: columns?.[1]trim().replace(/"/g, '') |
+                  return {
+                        title: columns[1]?.trim().replace(/"/g, '') || '',       // 0 -> 1
+                        organizer: columns[2]?.trim().replace(/"/g, '') || '',   // 1 -> 2
+                        description: columns[3]?.trim().replace(/"/g, '') || '',// 2 -> 3
+                        deadline: columns[4]?.trim().replace(/"/g, '') || '',   // 3 -> 4
+                        type: columns[5]?.trim().replace(/"/g, '') || '',       // 4 -> 5
+                        city: columns[6]?.trim().replace(/"/g, '') || '',       // 5 -> 6
+                        link: columns[7]?.trim().replace(/"/g, '') || '',       // 6 -> 7
+                        status: columns[8]?.trim().replace(/"/g, '') || ''      // 7 -> 8
+            };
 
-| '',
-                    organizer: columns?.[2]trim().replace(/"/g, '') |
-
-| '',
-                    description: columns?.[3]trim().replace(/"/g, '') |
-
-| '',
-                    deadline: columns?.[4]trim().replace(/"/g, '') |
-
-| '',
-                    type: columns?.[5]trim().replace(/"/g, '') |
-
-| '',
-                    city: columns?.[6]trim().replace(/"/g, '') |
-
-| '',
-                    link: columns?.[7]trim().replace(/"/g, '') |
-
-| '',
-                    status: columns?.[8]trim().replace(/"/g, '') |
-
-| '',
-                    approval_status: columns?.[9]trim().replace(/"/g, '') |
-
-| ''
-                };
             }).filter(opp => opp.approval_status === 'approved');
 
             displayOpportunities(allOpportunities);
@@ -124,4 +106,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // بداية تحميل البيانات
     fetchOpportunities();
 });
+
 
