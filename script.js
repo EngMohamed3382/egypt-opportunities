@@ -21,33 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const columns = row.split(',');
                 // تم إضافة عمود الموافقة الجديد
                 return {
-                    title: columns?.[1]trim().replace(/"/g, '') |
-
-| '',
-                    organizer: columns?.[2]trim().replace(/"/g, '') |
-
-| '',
-                    description: columns?.[3]trim().replace(/"/g, '') |
-
-| '',
-                    deadline: columns?.[4]trim().replace(/"/g, '') |
-
-| '',
-                    type: columns?.[5]trim().replace(/"/g, '') |
-
-| '',
-                    city: columns?.[6]trim().replace(/"/g, '') |
-
-| '',
-                    link: columns?.[7]trim().replace(/"/g, '') |
-
-| '',
-                    status: columns?.[8]trim().replace(/"/g, '') |
-
-| '',
-                    approval_status: columns?.[9]trim().replace(/"/g, '') |
-
-| ''
+                    title: columns[1]?.trim().replace(/"/g, '') || '',
+                    organizer: columns[2]?.trim().replace(/"/g, '') || '',
+                    description: columns[3]?.trim().replace(/"/g, '') || '',
+                    deadline: columns[4]?.trim().replace(/"/g, '') || '',
+                    type: columns[5]?.trim().replace(/"/g, '') || '',
+                    city: columns[6]?.trim().replace(/"/g, '') || '',
+                    link: columns[7]?.trim().replace(/"/g, '') || '',
+                    status: columns[8]?.trim().replace(/"/g, '') || '',
+                    approval_status: columns[9]?.trim().replace(/"/g, '') || ''
                 };
             }).filter(opp => opp.approval_status === 'approved'); // <-- تم تعديل الفلتر هنا
 
@@ -119,5 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // بداية تحميل البيانات
     fetchOpportunities();
 });
+
 
 
